@@ -84,7 +84,7 @@ class AppTheme {
         color: _surface,
         shadowColor: Colors.black.withOpacity(0.05),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),        
       ),

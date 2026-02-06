@@ -10,6 +10,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  firebase_core: ^2.10.0
+  firebase_analytics: ^10.5.0
 
 dev_dependencies:
   flutter_test:
@@ -17,5 +19,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Plus Jakarta Sans
+      fonts:
+        - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+        - asset: assets/fonts/PlusJakartaSans-SemiBold.ttf
+          weight: 600
   assets:
     - assets/images/
+    - assets/fonts/

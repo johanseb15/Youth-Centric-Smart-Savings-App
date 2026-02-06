@@ -48,3 +48,33 @@ npm -v
 flutter create apps/mobile
 nest new apps/backend --package-manager npm --skip-git
 ```
+
+## Android toolchain (Android Studio) — pasos rápidos
+
+1. Instalar Android Studio y abrir el SDK Manager. Desde allí instalar **Android SDK Command-line Tools** y al menos un Android SDK (ej. 33).
+2. Aceptar licencias en terminal:
+
+```powershell
+flutter doctor --android-licenses
+```
+
+3. Establecer ruta del SDK (si es necesario):
+
+```powershell
+flutter config --android-sdk "C:\\Users\\<tu_usuario>\\AppData\\Local\\Android\\Sdk"
+```
+
+## Plataformas soportadas
+- **Mobile (Android & iOS)** — prioridad: Android.
+- **Web** — habilitar para prototipado rápido.
+- **Windows/macOS/linux** — NO build por ahora (omitidos intencionalmente).
+
+## Habilitar Web en Flutter
+
+```powershell
+flutter config --enable-web
+flutter devices
+```
+
+## Notas de Firebase
+- Integra `firebase_core` y `firebase_analytics` desde el inicio. Sigue la guía oficial para configurar `google-services.json` (Android) y `index.html` (web).
