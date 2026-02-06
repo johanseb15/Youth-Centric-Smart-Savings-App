@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'core/theme/app_theme.dart';
+import 'features/auth/presentation/login_screen.dart';
+import 'features/home/presentation/home_screen.dart';
 
 void main() {
   runApp(const NamaaApp());
@@ -10,12 +13,26 @@ class NamaaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final GoRouter router = GoRouter(
+      initialLocation: '/login',
+      routes: [
+        GoRoute(
+          path: '/login',
+          name: 'login',
+          builder: (context, state) => const LoginScreen(),
+        ),
+        GoRoute(
+          path: '/home',
+          name: 'home',
+          builder: (context, state) => const HomeScreen(),
+        ),
+      ],
+    );
+
+    return MaterialApp.router(
       title: 'Namaa',
       theme: AppTheme.lightTheme,
-      home: const Scaffold(
-        body: Center(child: Text('Welcome to Namaa')),
-      ),
+      routerConfig: router,
     );
   }
 }
