@@ -47,8 +47,8 @@ Sigue estos pasos para crear tu versión local del proyecto en tu PC con Windows
 
 ## Próximos pasos sugeridos
 
-- Crear el proyecto Flutter dentro de `apps/mobile`.
-- Crear el proyecto NestJS dentro de `apps/backend`.
+- Crear el proyecto Flutter dentro de `apps/mobile` (scaffold inicial añadido).
+- Crear el proyecto NestJS dentro de `apps/backend` (scaffold inicial añadido).
 - Definir variables de entorno y scripts de arranque.
 
 Revisa la especificación UX/UI en `docs/ux-ui-spec.md`.
