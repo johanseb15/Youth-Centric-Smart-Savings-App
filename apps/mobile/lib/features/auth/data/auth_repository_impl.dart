@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import '../../../core/services/api_config.dart';
+import '../../../core/services/session_store.dart';
 import '../domain/user.dart';
 import '../domain/auth_repository.dart';
 
@@ -8,14 +9,7 @@ class AuthRepositoryImpl implements AuthRepository {
   final String baseUrl;
   String? _token;
 
-  AuthRepositoryImpl({String? baseUrl}) : baseUrl = baseUrl ?? _defaultBaseUrl();
-
-  static String _defaultBaseUrl() {
-    if (kIsWeb) {
-      return 'http://localhost:3000/api';
-    }
-    return 'http://10.0.2.2:3000/api';
-  }
+  AuthRepositoryImpl({String? baseUrl}) : baseUrl = baseUrl ?? ApiConfig.baseUrl;
 
   @override
   Future<User> register(String email, String username, String password) async {
@@ -32,6 +26,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (response.statusCode == 201) {
       final data = jsonDecode(response.body);
       _token = data['access_token'];
+      await SessionStore.setToken(_token);
       return _userFromJson(data['user']);
     } else {
       throw Exception('Failed to register: ${response.body}');
@@ -52,6 +47,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       _token = data['access_token'];
+      await SessionStore.setToken(_token);
       return _userFromJson(data['user']);
     } else {
       throw Exception('Failed to login: ${response.body}');
@@ -61,6 +57,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> logout() async {
     _token = null;
+    await SessionStore.setToken(null);
   }
 
   @override
@@ -71,12 +68,13 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<String?> getStoredToken() async {
-    return _token;
+    return SessionStore.token ?? _token;
   }
 
   @override
   Future<void> saveToken(String token) async {
     _token = token;
+    await SessionStore.setToken(token);
   }
 
   User _userFromJson(Map<String, dynamic> json) {

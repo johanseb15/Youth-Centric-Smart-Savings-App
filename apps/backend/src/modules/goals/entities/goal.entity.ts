@@ -5,6 +5,9 @@ export class GoalEntity {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
+  @Column({ type: 'uuid' })
+  userId!: string;
+
   @Column({ length: 150 })
   title!: string;
 

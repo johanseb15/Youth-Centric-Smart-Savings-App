@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -7,8 +8,16 @@ async function bootstrap() {
     origin: true,
     credentials: true,
   });
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
   app.setGlobalPrefix('api');
-  await app.listen(3000);
-  console.log('Backend listening on http://localhost:3000');
+  const port = Number(process.env.PORT) || 3000;
+  await app.listen(port);
+  console.log(`Backend listening on http://localhost:${port}`);
 }
 bootstrap();

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './entities/user.entity';
@@ -21,6 +21,18 @@ export class UsersService {
   async create(email: string, username: string, passwordHash: string): Promise<UserEntity> {
     const user = this.usersRepository.create({ email, username, passwordHash });
     return this.usersRepository.save(user);
+  }
+
+  async updateProfile(
+    userId: string,
+    updates: { username?: string; profileImageUrl?: string },
+  ): Promise<UserEntity> {
+    const user = await this.findById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    const merged = this.usersRepository.merge(user, updates);
+    return this.usersRepository.save(merged);
   }
 
   async incrementStreakCount(userId: string): Promise<void> {

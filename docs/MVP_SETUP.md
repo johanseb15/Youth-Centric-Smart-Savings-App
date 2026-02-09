@@ -3,7 +3,7 @@
 ## Pre-requisitos
 - Flutter 3.38.9+ ([instalación Windows](https://docs.flutter.dev/get-started/install/windows))
 - Node.js 24+ LTS ([descargar](https://nodejs.org/))
-- PostgreSQL 13+ running locally o en Docker
+- SQLite (por defecto) o PostgreSQL 13+ running locally o en Docker
 - Android SDK (para emulador o dispositivo físico)
 
 ## 1. Configurar Backend (NestJS)
@@ -120,7 +120,21 @@ $token = $response.access_token
 
 ---
 
-## 4. Docker (Opcional - para PostgreSQL local)
+## 4. Base de datos (SQLite por defecto)
+
+Por defecto el backend usa SQLite (`apps/backend/namaa_dev.db`).
+
+Si quieres usar PostgreSQL, en `apps/backend/.env`:
+```
+DB_TYPE=postgres
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=namaa
+DB_PASSWORD=namaa
+DB_NAME=namaa_dev
+```
+
+## 5. Docker (Opcional - para PostgreSQL local)
 
 Si prefieres usar Docker para la base de datos:
 ```powershell
@@ -135,7 +149,7 @@ PostgreSQL estará en: `localhost:5432` (credenciales en .env)
 
 ---
 
-## 5. Próximos Pasos del MVP (Sprint 1)
+## 6. Próximos Pasos del MVP (Sprint 1)
 
 ✅ **Completado:**
 - Setup estructura clean architecture
@@ -152,7 +166,7 @@ PostgreSQL estará en: `localhost:5432` (credenciales en .env)
 
 ---
 
-## 6. Troubleshooting
+## 7. Troubleshooting
 
 ### "Cannot find module '@nestjs/config'"
 ```powershell
@@ -178,7 +192,7 @@ flutter run
 
 ---
 
-## 7. Comandos Útiles
+## 8. Comandos Útiles
 
 **Backend:**
 ```powershell

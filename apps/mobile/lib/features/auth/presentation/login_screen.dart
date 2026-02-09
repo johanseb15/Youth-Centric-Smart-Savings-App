@@ -13,10 +13,12 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _authRepository = AuthRepositoryImpl();
   bool _isLoading = false;
   bool _showHero = false;
   bool _showCard = false;
+  bool _isRegister = false;
 
   @override
   void initState() {
@@ -37,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+    _usernameController.dispose();
     super.dispose();
   }
 
@@ -51,17 +54,38 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoading = true);
 
     try {
-      final user = await _authRepository.login(
-        _emailController.text,
-        _passwordController.text,
-      );
+      if (_isRegister) {
+        if (_usernameController.text.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Please enter a username')),
+          );
+          return;
+        }
+        await _authRepository.register(
+          _emailController.text,
+          _usernameController.text,
+          _passwordController.text,
+        );
+      } else {
+        await _authRepository.login(
+          _emailController.text,
+          _passwordController.text,
+        );
+      }
       if (mounted) {
         context.go('/home');
       }
     } catch (e) {
       if (mounted) {
+        final message = e.toString();
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${e.toString()}')),
+          SnackBar(
+            content: Text(
+              message.contains('ClientException')
+                  ? 'No se pudo conectar al backend. Verifica que esté activo y el puerto.'
+                  : 'Error: $message',
+            ),
+          ),
         );
       }
     } finally {
@@ -230,19 +254,31 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                'Inicia sesión',
+                _isRegister ? 'Crea tu cuenta' : 'Inicia sesión',
                 style: textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 8),
               Text(
-                'Vuelve a tu dashboard y sigue creciendo tu ahorro.',
+                _isRegister
+                    ? 'Empieza a construir tus metas hoy.'
+                    : 'Vuelve a tu dashboard y sigue creciendo tu ahorro.',
                 style: textTheme.bodyMedium?.copyWith(
                   color: const Color(0xFF64748B),
                 ),
               ),
               const SizedBox(height: 24),
+              if (_isRegister) ...[
+                TextField(
+                  controller: _usernameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Username',
+                    prefixIcon: Icon(Icons.person_outline),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
               TextField(
                 controller: _emailController,
                 decoration: const InputDecoration(
@@ -269,12 +305,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 20,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Entrar'),
+                    : Text(_isRegister ? 'Crear cuenta' : 'Entrar'),
               ),
               const SizedBox(height: 12),
               OutlinedButton(
-                onPressed: null,
-                child: const Text('Crear cuenta (próximamente)'),
+                onPressed: _isLoading
+                    ? null
+                    : () {
+                        setState(() => _isRegister = !_isRegister);
+                      },
+                child: Text(_isRegister ? 'Ya tengo cuenta' : 'Crear cuenta'),
               ),
               const SizedBox(height: 12),
               Text(

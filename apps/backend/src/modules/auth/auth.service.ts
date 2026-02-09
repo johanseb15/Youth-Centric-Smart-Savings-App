@@ -1,6 +1,7 @@
 import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import * as jwt from 'jsonwebtoken';
+import jwt, { Secret, SignOptions } from 'jsonwebtoken';
+import type { StringValue } from 'ms';
 import { UsersService } from '../users/users.service';
 import { LoginDto, RegisterDto, AuthResponseDto } from './dtos/auth.dto';
 
@@ -59,12 +60,18 @@ export class AuthService {
   }
 
   private generateToken(userId: string, email: string): string {
-    return jwt.sign({ sub: userId, email }, process.env.JWT_SECRET || 'your_secret_key', {
-      expiresIn: '24h',
-    });
+    const secret: Secret = process.env.JWT_SECRET || 'your_secret_key';
+    const expiresInEnv = process.env.JWT_EXPIRES_IN;
+    const expiresIn =
+      expiresInEnv && /^\d+$/.test(expiresInEnv)
+        ? Number(expiresInEnv)
+        : ((expiresInEnv || '24h') as StringValue);
+    const options: SignOptions = { expiresIn };
+    return jwt.sign({ sub: userId, email }, secret, options);
   }
 
   verifyToken(token: string): any {
-    return jwt.verify(token, process.env.JWT_SECRET || 'your_secret_key');
+    const secret: Secret = process.env.JWT_SECRET || 'your_secret_key';
+    return jwt.verify(token, secret);
   }
 }
