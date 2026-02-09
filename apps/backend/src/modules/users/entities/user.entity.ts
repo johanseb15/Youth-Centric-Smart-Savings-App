@@ -3,29 +3,29 @@ import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 @Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column({ length: 150, unique: true })
-  email: string;
+  email!: string;
 
   @Column({ length: 150 })
-  username: string;
+  username!: string;
 
   @Column()
-  passwordHash: string;
+  passwordHash!: string;
 
   @Column({ type: 'int', default: 0 })
-  streakCount: number;
+  streakCount!: number;
 
   @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
-  totalSaved: string;
+  totalSaved!: string;
 
   @Column({ type: 'varchar', nullable: true })
-  profileImageUrl: string;
+  profileImageUrl!: string;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 }

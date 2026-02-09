@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /// Tema principal de Namaa con identidad visual definida.
 class AppTheme {
@@ -7,8 +8,8 @@ class AppTheme {
   /// Colores principales
   static const Color _primary = Color(0xFF00A896); // Verde Crecimiento
   static const Color _secondary = Color(0xFF028090); // Azul Confianza
-  static const Color _accent = Color(0xFFF0B67F); // Amarillo Recompensa        
-  static const Color _background = Color(0xFFF8FAFC); // Fondo blanco roto      
+  static const Color _accent = Color(0xFFF0B67F); // Amarillo Recompensa
+  static const Color _background = Color(0xFFF7F9FC); // Fondo claro frío
   static const Color _surface = Color(0xFFFFFFFF);
   static const Color _error = Color(0xFFEF4444);
 
@@ -16,7 +17,6 @@ class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       useMaterial3: true,
-      fontFamily: 'Plus Jakarta Sans',
 
       // Colores base
       colorScheme: const ColorScheme.light(
@@ -29,6 +29,11 @@ class AppTheme {
 
       scaffoldBackgroundColor: _background,
 
+      textTheme: GoogleFonts.spaceGroteskTextTheme().apply(
+        bodyColor: const Color(0xFF0F172A),
+        displayColor: const Color(0xFF0F172A),
+      ),
+
       // AppBar personalizado
       appBarTheme: const AppBarTheme(
         elevation: 0,
@@ -36,7 +41,6 @@ class AppTheme {
         foregroundColor: Color(0xFF1E293B),
         centerTitle: true,
         titleTextStyle: TextStyle(
-          fontFamily: 'Plus Jakarta Sans',
           fontSize: 18,
           fontWeight: FontWeight.w600,
           color: Color(0xFF1E293B),
@@ -56,7 +60,6 @@ class AppTheme {
           textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            fontFamily: 'Plus Jakarta Sans',
           ),
         ),
       ),
@@ -73,13 +76,12 @@ class AppTheme {
           textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
-            fontFamily: 'Plus Jakarta Sans',
           ),
         ),
       ),
 
       // Cards con sombras sutiles
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 0,
         color: _surface,
         shadowColor: Colors.black.withOpacity(0.05),
@@ -109,8 +111,8 @@ class AppTheme {
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: _error, width: 1.5),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14)
-,                                                                                     ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      ),
 
       // Bottom Navigation Bar
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -172,7 +174,6 @@ class NamaaLogo extends StatelessWidget {
                 fontSize: size * 0.5,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
-                fontFamily: 'Plus Jakarta Sans',
               ),
             ),
           ),
@@ -185,7 +186,6 @@ class NamaaLogo extends StatelessWidget {
               fontSize: 28,
               fontWeight: FontWeight.bold,
               color: Color(0xFF1E293B),
-              fontFamily: 'Plus Jakarta Sans',
               letterSpacing: -0.5,
             ),
           ),
@@ -195,7 +195,6 @@ class NamaaLogo extends StatelessWidget {
             style: TextStyle(
               fontSize: 14,
               color: Colors.grey.shade600,
-              fontFamily: 'Plus Jakarta Sans',
             ),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../domain/user.dart';
 import '../domain/auth_repository.dart';
@@ -7,7 +8,14 @@ class AuthRepositoryImpl implements AuthRepository {
   final String baseUrl;
   String? _token;
 
-  AuthRepositoryImpl({this.baseUrl = 'http://localhost:3000/api'});
+  AuthRepositoryImpl({String? baseUrl}) : baseUrl = baseUrl ?? _defaultBaseUrl();
+
+  static String _defaultBaseUrl() {
+    if (kIsWeb) {
+      return 'http://localhost:3000/api';
+    }
+    return 'http://10.0.2.2:3000/api';
+  }
 
   @override
   Future<User> register(String email, String username, String password) async {

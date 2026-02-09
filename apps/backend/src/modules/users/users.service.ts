@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserEntity } from '../entities/user.entity';
+import { UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -23,9 +23,7 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  async increment
-
-StreakCount(userId: string): Promise<void> {
+  async incrementStreakCount(userId: string): Promise<void> {
     await this.usersRepository.increment({ id: userId }, 'streakCount', 1);
   }
 

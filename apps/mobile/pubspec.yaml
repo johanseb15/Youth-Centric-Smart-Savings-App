@@ -14,6 +14,7 @@ dependencies:
   firebase_analytics: ^10.5.0
   http: ^1.1.0
   go_router: ^9.0.0
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -21,12 +22,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  fonts:
-    - family: Plus Jakarta Sans
-      fonts:
-        - asset: assets/fonts/PlusJakartaSans-Regular.ttf
-        - asset: assets/fonts/PlusJakartaSans-SemiBold.ttf
-          weight: 600
+  # fonts:
+  #   - family: Plus Jakarta Sans
+  #     fonts:
+  #       - asset: assets/fonts/PlusJakartaSans-Regular.ttf
+  #       - asset: assets/fonts/PlusJakartaSans-SemiBold.ttf
+  #         weight: 600
   assets:
     - assets/images/
-    - assets/fonts/
+    # - assets/fonts/
