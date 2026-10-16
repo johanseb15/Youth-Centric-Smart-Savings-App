@@ -7,9 +7,9 @@ services:
     environment:
       POSTGRES_DB: namaa_dev
       POSTGRES_USER: namaa
-      POSTGRES_PASSWORD: namaa
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en tu entorno}
     ports:
-      - '5432:5432'
+      - '127.0.0.1:5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -17,7 +17,7 @@ services:
     image: redis:7
     container_name: namaa-redis
     ports:
-      - '6379:6379'
+      - '127.0.0.1:6379:6379'
 
 volumes:
   postgres_data:
