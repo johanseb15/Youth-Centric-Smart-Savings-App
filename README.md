@@ -1,3 +1,22 @@
+> **Ficha de proyecto — Vyntrava | 2026-11-20**
+> Estado documental: revisión de repositorio; no implica despliegue ni auditoría de producción.
+
+## Resumen y propósito
+
+**Namaa: prototipo de ahorro gamificado.** Estructura monorepo para aplicación móvil Flutter y API NestJS, con especificaciones y herramientas de desarrollo.
+
+## Estado y límites
+
+Scaffold y documentación inicial; no se ha demostrado una aplicación productiva ni operaciones bancarias reales.
+
+## Ubicación en el portfolio
+
+Exploración de producto fintech/educación financiera; no confundir con software financiero regulado.
+
+**Código:** [Youth-Centric-Smart-Savings-App](https://github.com/johanseb15/Youth-Centric-Smart-Savings-App) · **Documentación técnica original:** continúa a continuación y puede reflejar un estado histórico.
+
+---
+
 # Namaa (Youth-Centric Smart Savings App)
 
 Repositorio inicial para el proyecto **Namaa**, una app de ahorro gamificada enfocada en público juvenil.
